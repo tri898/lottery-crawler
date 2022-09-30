@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  mariadb:
+    container_name: mariadb
+    image: docker.io/bitnami/mariadb:10.6
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=thientri
+      - MARIADB_DATABASE=crawler_db
+  myapp:
+    container_name: crawler
+    image: docker.io/bitnami/laravel:9
+    ports:
+      - '8000:8000'
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_USERNAME=thientri
+      - DB_DATABASE=crawler_db
+    volumes:
+      - './my-project:/app'
+    depends_on:
+      - mariadb
