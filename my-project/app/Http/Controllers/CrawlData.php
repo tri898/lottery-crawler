@@ -9,7 +9,7 @@ class CrawlData extends Controller
 {
     public function call()
     {
-        $url = 'https://www.kqxs.vn/mien-bac';
+        $url = 'https://www.kqxs.vn';
         Crawler::create()
             ->setCrawlObserver(new NorthsideCrawl)
             ->startCrawling($url);
